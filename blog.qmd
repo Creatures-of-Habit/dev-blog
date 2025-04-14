@@ -1,0 +1,14 @@
+---
+title: "Blog"
+page-layout: article
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+---
+
+####  🧠 Welcome to the *Creatures of Habit* Developer Blog! 👋
+
+Welcome to the official developer blog of **Creatures of Habit**! This blog is a platform where we share our journey, insights, and knowledge. 💡🛠️
+

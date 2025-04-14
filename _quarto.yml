@@ -1,0 +1,23 @@
+project:
+  type: website
+  
+
+website:
+  title:  "<img src='logo.png' style='height: 48px; vertical-align: middle;'> Creatures of Habit"
+  favicon: favicon.ico 
+
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: blog.qmd
+        text: Blog
+
+format:
+  html:
+    theme: simplex
+    css: styles.css
+    toc: true
+
+
+
