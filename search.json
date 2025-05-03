@@ -1,17 +1,52 @@
 [
   {
-    "objectID": "posts/placeholder.html",
-    "href": "posts/placeholder.html",
-    "title": "Coming Soon",
+    "objectID": "posts/dev1.html",
+    "href": "posts/dev1.html",
+    "title": "First Steps",
     "section": "",
-    "text": "📝 This is a placeholder post.\nMore discussions, thoughts, and ideas will be shared here soon. Stay tuned!"
+    "text": "An early inspiration our project’s visual style is the indie title Devil Daggers by Sorath! I am particularly impressed with how well it evokes retro style shooters without sacrificing graphical fidelity or becoming visually obtrusive. Here are some of the techniques used by Sorath that we would like to recreate for Creatures of Habit…\n\n\n\n\n\n\n\nDevil Daggers makes heavy use of unfiltered textures to get it’s sharp and pixelated look. There are two ways to achieve this in Godot…\n\n\nYou can force textures to be filtered by nearest mipmaps by default by setting the option in the project settings\n(Rendering → Quality → Filters → Use Nearest Mipmap Filter)\n\n\n\nIn the Godot editor, select a StandardMaterial3D and find the Sampling section. There you’ll see Filter (texture sampling mode), Repeat (tiling), Anisotropy, Mipmaps toggle, etc. By default it’s “Linear with Mipmaps”, but you can choose “Nearest”.\n\n\nIf you’re using a ShaderMaterial, set the filtering method for your textures using the filter_nearest hint.\n\n\nshader_type spatial;\n\nuniform sampler2D texture_albedo : source_color, filter_nearest, repeat_enable;\n\nvoid fragment(){\n    vec4 albedo = texture(texture_albedo,UV);\n    ALBEDO.rgb;\n}\n\n\n\n\n\n\nOne way to influence the overall look of a scene in Godot is by using an Environment node to set the Tonemap property. For our purposes, we’re opting to go with ACES for the high color contrast."
+  },
+  {
+    "objectID": "posts/dev1.html#unfiltered-textures",
+    "href": "posts/dev1.html#unfiltered-textures",
+    "title": "First Steps",
+    "section": "",
+    "text": "Devil Daggers makes heavy use of unfiltered textures to get it’s sharp and pixelated look. There are two ways to achieve this in Godot…\n\n\nYou can force textures to be filtered by nearest mipmaps by default by setting the option in the project settings\n(Rendering → Quality → Filters → Use Nearest Mipmap Filter)\n\n\n\nIn the Godot editor, select a StandardMaterial3D and find the Sampling section. There you’ll see Filter (texture sampling mode), Repeat (tiling), Anisotropy, Mipmaps toggle, etc. By default it’s “Linear with Mipmaps”, but you can choose “Nearest”.\n\n\nIf you’re using a ShaderMaterial, set the filtering method for your textures using the filter_nearest hint.\n\n\nshader_type spatial;\n\nuniform sampler2D texture_albedo : source_color, filter_nearest, repeat_enable;\n\nvoid fragment(){\n    vec4 albedo = texture(texture_albedo,UV);\n    ALBEDO.rgb;\n}"
+  },
+  {
+    "objectID": "posts/dev1.html#high-contrast",
+    "href": "posts/dev1.html#high-contrast",
+    "title": "First Steps",
+    "section": "",
+    "text": "One way to influence the overall look of a scene in Godot is by using an Environment node to set the Tonemap property. For our purposes, we’re opting to go with ACES for the high color contrast."
+  },
+  {
+    "objectID": "posts/dev1.html#state-machines",
+    "href": "posts/dev1.html#state-machines",
+    "title": "First Steps",
+    "section": "State Machines",
+    "text": "State Machines\nA popular solution for implementing Character controller is to use a State Machine to define every possible state that player can be in. This allows programers to define clear behavior for each possible state in relatively straightforward and maintainable way. I however decided against going with a pure state machine approach for the following reasons…\n\nYou can only be in one state at a time, meaning that a player could not say crouch-jump or be in any other compound state without this state being explicitly defined.\nYou need to define every possible state EXHAUSTIVELY, meaning that we would need to account for a half a dozen states or more, not even taking into account all compound states as mentioned above.\nAccounting for all state transitions becomes less and less manageable as the number of states grows given that every state may or may not need to be able to transition to every other state."
+  },
+  {
+    "objectID": "posts/dev1.html#our-approach",
+    "href": "posts/dev1.html#our-approach",
+    "title": "First Steps",
+    "section": "Our Approach",
+    "text": "Our Approach\nTo resolve these issues, I decided to implement a hybrid State and State Flags solution! State flags in this context are simply bit flags that represent non-exclusive player behaviors or actions.\nWith this approach, we can more easily account for compound states while still adhering to a common architecture.\nThe key way for deciding if a particular behavior should be a state or a flag was by figuring our if a player would ever need to or be able to be in any other state while performing said behavior.\n\n\nStates\n\nGROUNDED: The player is on the floor, either walking or idle\nSPRINTING: The player is on the floor, moving forward, and sprinting\nJUMPING: The player is not on the floor and is going upwards\nFALLING: The player is not on the floor and is going downwards\n\n\n\nState Flags\n\nCROUCHING: The player can crouch while in any state except for sprinting.\nSTRAFING: The player is moving horizontally in any direction"
+  },
+  {
+    "objectID": "posts/dev1.html#additional-features",
+    "href": "posts/dev1.html#additional-features",
+    "title": "First Steps",
+    "section": "Additional Features",
+    "text": "Additional Features\n\nFall Gravity Scaling\nPlayer character’s in games can sometime feel sluggish or floaty when jumping, especially if little care is put towards tuning air movement. To help avoid this issue for CoH, I made it so gravity is actually higher as the player falls towards the ground. Done this way, the player will spend more time in the air jumping rather than falling, hopefully improving the visceral feeling on controlling the character.\n\n\nJump Buffering\nOne way to make player inputs feel more responsive is to buffer their inputs. I decided to implement some input buffering for the jump action. Player’s should now be able to execute the jump action 0.2 seconds before actually touching the ground, resulting in a jump as soon as contact is made with the floor."
   },
   {
     "objectID": "blog.html",
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "🧠 Welcome to the Creatures of Habit Developer Blog! 👋\nWelcome to the official developer blog of Creatures of Habit! This blog is a platform where we share our journey, insights, and knowledge. 💡🛠️\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComing Soon\n\n\n\n\n\n\nPlaceholder\n\n\n\n\n\n\n\n\n\nMar 31, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "🧠 Welcome to the Creatures of Habit Developer Blog! 👋\nWelcome to the official developer blog of Creatures of Habit! This blog is a platform where we share our journey, insights, and knowledge. 💡🛠️\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFirst Steps\n\n\n\n\n\n\ndev-blog\n\n\n\n\n\n\n\n\n\nMay 2, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
